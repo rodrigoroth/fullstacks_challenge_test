@@ -17,18 +17,18 @@ jobs:
           SOURCE_BRANCH="${{ github.head_ref }}"
           TARGET_BRANCH="${{ github.base_ref }}"
 
-          if [[ "$TARGET_BRANCH"  == "stage" && "$SOURCE_BRANCH" != "devel"]]; then
+          if [[ "$TARGET_BRANCH"  == "stage" && "$SOURCE_BRANCH" != "devel" ]]; then
             echo "Only PRs from 'devel' are allowed to merge into 'prod'."
             exit 1
           fi
 
-           if [[ "$TARGET_BRANCH"  == "prod" && "$SOURCE_BRANCH" != "stage"]]; then
+           if [[ "$TARGET_BRANCH"  == "prod" && "$SOURCE_BRANCH" != "stage" ]]; then
             echo "Only PRs from 'devel' are allowed to merge into 'prod'."
             exit 1
           fi
 
           if [[ "$TARGET_BRANCH" == "devel" ]]; then
-            if [[ ! "SOURCE_BRANCH" =~ ^(feature|bugfix)/.+$ ]]; then
+            if [[ ! "$SOURCE_BRANCH" =~ ^(feature|bugfix)/.+$ ]]; then
               echo "Branches merging into 'devel' must start with 'feature/' or 'bugfix/'."
               exit 1
             fi
